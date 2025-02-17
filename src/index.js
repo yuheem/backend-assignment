@@ -33,11 +33,20 @@ app.get('/api/books/:id', (req, res) => {
  * Adds a new book to the collection.
  */
 app.post('/api/books', (req, res) => {
+  const { title, author } = req.body;
+  // Validate that required fields are provided
+  if (!title || !author) {
+    return res.status(400).json({ error: 'Title and author are required' });
+  }
+  const titleExists = books.find(book => book.title === title);
+  if (titleExists) {
+    return res.status(400).json({ error: 'Title already exists' });
+  }
   const maxId = books.length > 0 ? Math.max(...books.map(b => b.id)): 0;
   const newBook = req.body;
   newBook.id = maxId + 1;
   
-  books = books.concat(newBook);
+  books.push(newBook);
   res.status(201).json(newBook);
 });
 
@@ -47,8 +56,13 @@ app.post('/api/books', (req, res) => {
  */
 app.delete('/api/books/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
-  books = books.filter(book => book.id === id);
-  res.status(204).end();
+  const index = books.findIndex(b => b.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Book not found' });
+  }
+
+  const deletedBook = books.splice(index, 1)[0];
+  res.json(deletedBook);
 });
 
 const PORT = process.env.PORT || 3000;
