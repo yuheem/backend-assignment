@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
+    "test": "mocha",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -18,8 +18,11 @@
   "devDependencies": {
     "@eslint/js": "^9.20.0",
     "@stylistic/eslint-plugin-js": "^3.1.0",
+    "chai": "^5.2.0",
     "eslint": "^9.20.1",
     "globals": "^15.15.0",
-    "nodemon": "^3.1.9"
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
   }
 }
