@@ -1,8 +1,11 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+// Middleware to log HTTP requests
+app.use(morgan('combined'));
 
 // In-memory "database" of books (each with an id, title, and author)
 let books = [
