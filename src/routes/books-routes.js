@@ -8,8 +8,11 @@ const booksRepository = new BooksRepository();
 const booksService = new BooksService(booksRepository);
 const booksController = new BooksController(booksService);
 
+// GET /:id - Retrieve a book by its ID
 router.get('/:id', (req, res) => booksController.getBookById(req, res));
+// POST / - Add a new book
 router.post('/', (req, res) => booksController.addBook(req, res));
+// DELETE /:id - Delete a book by its ID
 router.delete('/:id', (req, res) => booksController.deleteBook(req, res));
 
 module.exports = router;
